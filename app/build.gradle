@@ -26,10 +26,40 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
+    implementation kotlinDependencies.kotlin
+    implementation androidXDependencies.appCompat
+    implementation androidXDependencies.material
+    implementation androidXDependencies.constraintLayout
+    implementation androidXDependencies.recyclerView
+    implementation androidXDependencies.navigationUi
+    implementation androidXDependencies.navigationFragment
+    implementation androidXDependencies.androidKtx
+
+    implementation developmentDependencies.timber
+    implementation developmentDependencies.leakCanary
+    implementation developmentDependencies.leakCanaryNoOp
+    implementation developmentDependencies.stetho
+    implementation developmentDependencies.chuck
+    implementation developmentDependencies.chuckNoOp
+
+    implementation presentationDependencies.glide
+    implementation presentationDependencies.glideCompiler
+
+    implementation dataDependencies.dagger
+    implementation dataDependencies.daggerCompiler
+
+    testImplementation testDependencies.jUnit
+    testImplementation testDependencies.mockito
+    testImplementation testDependencies.mockitoKotlin
+    testImplementation testDependencies.mockitoInline
+    testImplementation testDependencies.assertJ
+
+    androidTestImplementation androidTestDependencies.testRunner
+    androidTestImplementation androidTestDependencies.espressoCore
+    androidTestImplementation androidTestDependencies.testRules
+    androidTestImplementation androidTestDependencies.supportAnnotations
+    androidTestImplementation androidTestDependencies.roomTesting
+    androidTestImplementation androidTestDependencies.testArchCore
+    androidTestImplementation androidTestDependencies.roomTesting
+    androidTestImplementation androidTestDependencies.navigationTesting
 }

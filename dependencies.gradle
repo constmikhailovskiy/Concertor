@@ -37,7 +37,7 @@ ext {
     chuckVer = '1.1.0'
 
     // Unit-tests
-    jUnitVer = '5.2.0'
+    jUnitVer = '4.12'
     mockitoVer = '2.15.0'
     mockitoKotlinVer = '1.5.0'
     assertJVer = '3.9.0'
@@ -64,7 +64,7 @@ ext {
     ]
 
     kotlinDependencies = [
-            kotlinStdLib        : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVer",
+            kotlin              : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVer",
             coroutines          : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVer",
             coroutinesAndroid   : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVer"
     ]
@@ -74,7 +74,6 @@ ext {
             leakCanary    : "com.squareup.leakcanary:leakcanary-android:$leakCanaryVer",
             leakCanaryNoOp: "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVer",
             stetho        : "com.facebook.stetho:stetho:$stethoVer",
-            stethoOkHttp  : "com.facebook.stetho:stetho-okhttp3:$stethoVer",
             chuck         : "com.readystatesoftware.chuck:library:$chuckVer",
             chuckNoOp     : "com.readystatesoftware.chuck:library-no-op:$chuckVer",
     ]
@@ -110,8 +109,7 @@ ext {
             espressoCore      : "androidx.test.espresso:espresso-core:$espressoVer",
             testRules         : "androidx.test:rules:$rulesVer",
             supportAnnotations: "androidx.annotation:annotation:$annotationVer",
-            testRoom          : "android.arch.persistence.room:testing:$roomVer",
-            testArchCore      : "android.arch.core:core-testing:$archCoreVer",
+            testArchCore      : "androidx.arch.core:core-testing:$archCoreVer",
             roomTesting       : "androidx.room:room-testing:$roomVer",
             navigationTesting : "android.arch.navigation:navigation-testing-ktx:$navigationVer"
     ]

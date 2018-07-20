@@ -28,6 +28,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(":network")
+    implementation project(":database")
 
     implementation kotlinDependencies.kotlin
     implementation androidXDependencies.appCompat

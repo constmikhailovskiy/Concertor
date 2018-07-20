@@ -60,7 +60,7 @@ ext {
             constraintLayout    : "androidx.constraintlayout:constraintlayout:$constraintLayoutVer",
             lifecycle           : "androidx.lifecycle:lifecycle-common:$lifecycleVer",
             lifecycleCompiler   : "androidx.lifecycle:lifecycle-compiler:$lifecycleVer",
-            paging              : "androidx.paging:paging-common:$pagingVer",
+            paging              : "androidx.paging:paging-runtime:$pagingVer",
             navigationUi        : "android.arch.navigation:navigation-ui-ktx:$navigationVer",
             navigationFragment  : "android.arch.navigation:navigation-fragment-ktx:$navigationVer",
             androidKtx          : "androidx.core:core-ktx:$androidKtxVer"
@@ -95,7 +95,7 @@ ext {
             retrofit                : "com.squareup.retrofit2:retrofit:$retrofitVer",
             retrofitMoshiConverter  : "com.squareup.retrofit2:converter-moshi:$retrofitVer",
             retrofitCoroutines      : "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:$retrofitCoroutinesAdapterVer",
-            room                    : "androidx.room:room-common:$roomVer",
+            room                    : "androidx.room:room-runtime:$roomVer",
             roomCompiler            : "androidx.room:room-compiler:$roomVer",
             roomMigration           : "androidx.room:room-migration:$roomVer",
             moshi                   : "com.squareup.moshi:moshi:$moshiVer"

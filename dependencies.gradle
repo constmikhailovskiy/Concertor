@@ -5,7 +5,6 @@ ext {
 
     // Kotlin
     kotlinVer = '1.2.51'
-    androidKtxVer = '0.3'
     coroutinesVer = '0.23.4'
 
     // AndroidX
@@ -18,6 +17,8 @@ ext {
     materialVer = '1.0.0-alpha1'
     recyclerViewVer = '1.0.0-alpha1'
     navigationVer = '1.0.0-alpha04'
+    androidXVer = '1.0.0-alpha1'
+    androidKtxVer = '1.0.0-alpha1'
 
     // DI
     daggerVer = '2.16'
@@ -27,8 +28,11 @@ ext {
     retrofitCoroutinesAdapterVer = '1.0.0'
     okHttpVer = '3.11.0'
 
+    // Moshi
+    moshiVer = '1.6.0'
+
     // Images
-    glideVer = '4.7.1'
+    glideVer = '4.8.0-SNAPSHOT'
 
     // Developer-related
     timberVer = '4.7.0'
@@ -60,7 +64,6 @@ ext {
             navigationUi        : "android.arch.navigation:navigation-ui-ktx:$navigationVer",
             navigationFragment  : "android.arch.navigation:navigation-fragment-ktx:$navigationVer",
             androidKtx          : "androidx.core:core-ktx:$androidKtxVer"
-
     ]
 
     kotlinDependencies = [
@@ -81,6 +84,7 @@ ext {
     presentationDependencies = [
             glide              : "com.github.bumptech.glide:glide:$glideVer",
             glideCompiler      : "com.github.bumptech.glide:compiler:$glideVer",
+            glideOkhttp        : "com.github.bumptech.glide:okhttp-integration:$glideVer"
     ]
 
     dataDependencies = [
@@ -89,11 +93,12 @@ ext {
             okHttp                  : "com.squareup.okhttp3:okhttp:$okHttpVer",
             okHttpInterceptor       : "com.squareup.okhttp3:logging-interceptor:$okHttpVer",
             retrofit                : "com.squareup.retrofit2:retrofit:$retrofitVer",
-            retrofitMoshiConverter  : "com.squareup.retrofit2:converter-gson:$retrofitVer",
+            retrofitMoshiConverter  : "com.squareup.retrofit2:converter-moshi:$retrofitVer",
             retrofitCoroutines      : "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:$retrofitCoroutinesAdapterVer",
             room                    : "androidx.room:room-common:$roomVer",
             roomCompiler            : "androidx.room:room-compiler:$roomVer",
-            roomMigration           : "androidx.room:room-migration:$roomVer"
+            roomMigration           : "androidx.room:room-migration:$roomVer",
+            moshi                   : "com.squareup.moshi:moshi:$moshiVer"
     ]
 
     testDependencies = [

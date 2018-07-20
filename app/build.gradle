@@ -26,27 +26,24 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(":network")
+
     implementation kotlinDependencies.kotlin
     implementation androidXDependencies.appCompat
     implementation androidXDependencies.material
     implementation androidXDependencies.constraintLayout
     implementation androidXDependencies.recyclerView
-    implementation androidXDependencies.navigationUi
-    implementation androidXDependencies.navigationFragment
     implementation androidXDependencies.androidKtx
 
     implementation developmentDependencies.timber
-    implementation developmentDependencies.leakCanary
-    implementation developmentDependencies.leakCanaryNoOp
+    debugImplementation developmentDependencies.leakCanary
+    releaseImplementation developmentDependencies.leakCanaryNoOp
+    testImplementation developmentDependencies.leakCanaryNoOp
     implementation developmentDependencies.stetho
-    implementation developmentDependencies.chuck
-    implementation developmentDependencies.chuckNoOp
-
-    implementation presentationDependencies.glide
-    implementation presentationDependencies.glideCompiler
 
     implementation dataDependencies.dagger
-    implementation dataDependencies.daggerCompiler
+    kapt dataDependencies.daggerCompiler
 
     testImplementation testDependencies.jUnit
     testImplementation testDependencies.mockito
@@ -61,5 +58,8 @@ dependencies {
     androidTestImplementation androidTestDependencies.roomTesting
     androidTestImplementation androidTestDependencies.testArchCore
     androidTestImplementation androidTestDependencies.roomTesting
-    androidTestImplementation androidTestDependencies.navigationTesting
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

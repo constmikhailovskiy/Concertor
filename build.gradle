@@ -2,6 +2,7 @@
 apply from: 'dependencies.gradle'
 
 buildscript {
+    ext.kotlin_version = '1.2.51'
     ext.kotlinVer = '1.2.51'
 
     repositories {
@@ -21,6 +22,10 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven {
+            name 'glide-snapshot'
+            url 'http://oss.sonatype.org/content/repositories/snapshots'
+        }
     }
 }
 

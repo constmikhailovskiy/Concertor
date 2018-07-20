@@ -15,7 +15,8 @@ data class EventEntity(
         @Embedded val location: LocationEntity,
         @Embedded val start: EventDateEntity,
         @ColumnInfo(name = "performanceName") val performanceName: String,
-        @ColumnInfo(name = "artistName") val artistName: String
+        @ColumnInfo(name = "artistName") val artistName: String,
+        @ColumnInfo(name = "planned") val planned: Boolean
 )
 
 data class VenueEntity(@ColumnInfo(name = "displayName") val name: String)

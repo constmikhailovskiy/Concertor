@@ -1,27 +1,26 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
-
-apply plugin: 'kotlin-kapt'
-
 android {
-    compileSdkVersion compileSdkVer
+    compileSdkVersion 28
+
     defaultConfig {
-        applicationId "app.concertor"
-        minSdkVersion minSdkVer
-        targetSdkVersion targetSdkVer
+        minSdkVersion 21
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
+
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+        debug {}
+
+        release {}
     }
+
 }
 
 kotlin {
@@ -33,28 +32,17 @@ kotlin {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(":reduxmachine")
-    implementation project(":network")
-    implementation project(":database")
-    implementation project(":repository")
-    implementation project(":domain")
+    api project(":coroutinesprovider")
 
     implementation kotlinDependencies.kotlin
+    implementation kotlinDependencies.coroutines
+    implementation kotlinDependencies.coroutinesAndroid
+
     implementation androidXDependencies.appCompat
-    implementation androidXDependencies.material
-    implementation androidXDependencies.constraintLayout
-    implementation androidXDependencies.recyclerView
     implementation androidXDependencies.androidKtx
     implementation androidXDependencies.lifecycleExt
 
     implementation developmentDependencies.timber
-    debugImplementation developmentDependencies.leakCanary
-    releaseImplementation developmentDependencies.leakCanaryNoOp
-    testImplementation developmentDependencies.leakCanaryNoOp
-    implementation developmentDependencies.stetho
-
-    implementation dataDependencies.dagger
-    kapt dataDependencies.daggerCompiler
 
     testImplementation testDependencies.jUnit
     testImplementation testDependencies.mockito

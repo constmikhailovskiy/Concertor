@@ -5,15 +5,9 @@ apply plugin: 'kotlin-kapt'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(":coroutinesprovider")
-
     // Kotlin
     implementation kotlinDependencies.kotlin
     implementation kotlinDependencies.coroutines
-
-    // Dagger
-    implementation dataDependencies.dagger
-    kapt dataDependencies.daggerCompiler
 }
 
 sourceCompatibility = "1.8"

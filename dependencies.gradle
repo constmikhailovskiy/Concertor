@@ -98,7 +98,8 @@ ext {
             room                    : "androidx.room:room-runtime:$roomVer",
             roomCompiler            : "androidx.room:room-compiler:$roomVer",
             roomMigration           : "androidx.room:room-migration:$roomVer",
-            moshi                   : "com.squareup.moshi:moshi:$moshiVer"
+            moshi                   : "com.squareup.moshi:moshi:$moshiVer",
+            moshiKotlin             : "com.squareup.moshi:moshi-kotlin:$moshiVer"
     ]
 
     testDependencies = [

@@ -1,6 +1,7 @@
 package app.concertor.models
 
 import com.squareup.moshi.Json
+import java.util.*
 
 data class EventsResponse(
         @Json(name = "resultsPage") val resultsPage: EventResultsPage
@@ -32,8 +33,9 @@ data class EventLocationModel(
 )
 
 data class EventStartModel(
-        @Json(name = "time") val time: String,
-        @Json(name = "date") val date: String
+        @Json(name = "time") val time: Date,
+        @Json(name = "date") val date: Date,
+        @Json(name = "datetime") val dateTime: Date
 )
 
 data class PerformanceModel(

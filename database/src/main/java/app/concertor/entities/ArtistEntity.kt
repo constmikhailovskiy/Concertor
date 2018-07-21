@@ -8,6 +8,5 @@ import androidx.room.PrimaryKey
 data class ArtistEntity(
         @PrimaryKey @ColumnInfo(name = "id") val id: Long,
         @ColumnInfo(name = "name") val name: String,
-        @ColumnInfo(name = "url") val url: String,
-        @ColumnInfo(name = "favorite") val favorite: Boolean
+        @ColumnInfo(name = "url") val url: String
 )

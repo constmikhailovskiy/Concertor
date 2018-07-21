@@ -36,21 +36,14 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(":domain")
+    implementation project(":database")
+    implementation project(":network")
 
     implementation kotlinDependencies.kotlin
-
-    implementation developmentDependencies.timber
+    implementation kotlinDependencies.coroutines
 
     implementation dataDependencies.dagger
     kapt dataDependencies.daggerCompiler
-
-    api dataDependencies.okHttp
-    api dataDependencies.okHttpInterceptor
-    api dataDependencies.retrofit
-    api dataDependencies.retrofitMoshiConverter
-    api dataDependencies.retrofitCoroutines
-    api dataDependencies.moshi
-    api dataDependencies.moshiKotlin
 
     testImplementation testDependencies.jUnit
     testImplementation testDependencies.mockito

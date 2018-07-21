@@ -24,11 +24,18 @@ android {
     }
 }
 
+kotlin {
+    experimental {
+        coroutines 'enable'
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(":network")
     implementation project(":database")
+    implementation project(":repository")
     implementation project(":domain")
 
     implementation kotlinDependencies.kotlin

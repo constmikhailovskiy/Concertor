@@ -4,6 +4,7 @@ import app.concertor.BuildConfig
 import app.concertor.SongkickApi
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -22,6 +23,12 @@ class NetworkModule {
         private const val CLIENT_CONNECT_TIMEOUT_SECONDS = 30L
         private const val CLIENT_READ_TIMEOUT_SECONDS = 30L
         private const val CLIENT_WRITE_TIMEOUT_SECONDS = 10L
+    }
+
+    @Provides
+    @Singleton
+    fun provideMoshi(): Moshi {
+        return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
     }
 
     @Provides

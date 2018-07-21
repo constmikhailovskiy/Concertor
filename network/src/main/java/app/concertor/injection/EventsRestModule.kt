@@ -3,8 +3,8 @@ package app.concertor.injection
 import app.concertor.SongkickApi
 import app.concertor.mappers.EventsMapper
 import app.concertor.mappers.EventsMapperImpl
-import app.concertor.source.RemoteEventsDataSource
-import app.concertor.source.RemoteEventsDataSourceImpl
+import app.concertor.source.EventsRemoteStore
+import app.concertor.source.EventsRemoteStoreImpl
 import dagger.Module
 import dagger.Provides
 
@@ -18,8 +18,8 @@ class EventsRestModule {
     fun provideEventsDataSource(
             apiService: SongkickApi,
             mapper: EventsMapper
-    ): RemoteEventsDataSource {
+    ): EventsRemoteStore {
 
-        return RemoteEventsDataSourceImpl(apiService, mapper)
+        return EventsRemoteStoreImpl(apiService, mapper)
     }
 }

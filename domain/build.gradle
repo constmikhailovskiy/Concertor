@@ -8,6 +8,10 @@ dependencies {
     // Kotlin
     implementation kotlinDependencies.kotlin
     implementation kotlinDependencies.coroutines
+
+    // Dagger
+    implementation dataDependencies.dagger
+    kapt dataDependencies.daggerCompiler
 }
 
 sourceCompatibility = "1.8"
@@ -26,6 +30,12 @@ buildscript {
 repositories {
     mavenCentral()
     google()
+}
+
+kotlin {
+    experimental {
+        coroutines 'enable'
+    }
 }
 
 compileKotlin {

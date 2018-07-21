@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity(tableName = "event")
 data class EventEntity(
@@ -11,15 +12,11 @@ data class EventEntity(
         @ColumnInfo(name = "name") val name: String,
         @ColumnInfo(name = "type") val type: String,
         @ColumnInfo(name = "uri") val uri: String,
-        @Embedded val venue: VenueEntity,
+        @ColumnInfo(name = "venue") val venue: String,
         @Embedded val location: LocationEntity,
-        @Embedded val start: EventDateEntity,
-        @ColumnInfo(name = "performanceName") val performanceName: String,
-        @ColumnInfo(name = "artistName") val artistName: String,
-        @ColumnInfo(name = "planned") val planned: Boolean
+        @ColumnInfo(name = "date") val date: Date,
+        @Embedded val performance: PerformanceEntity
 )
-
-data class VenueEntity(@ColumnInfo(name = "displayName") val name: String)
 
 data class LocationEntity(
         @ColumnInfo(name = "latitude") val latitude: Double,
@@ -27,7 +24,7 @@ data class LocationEntity(
         @ColumnInfo(name = "city") val city: String
 )
 
-data class EventDateEntity(
-        @ColumnInfo(name = "time") val time: String,
-        @ColumnInfo(name = "date") val date: String
+data class PerformanceEntity(
+        @ColumnInfo(name = "performanceName") val performanceName: String,
+        @ColumnInfo(name = "artistName") val artistName: String
 )

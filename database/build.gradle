@@ -43,6 +43,7 @@ dependencies {
     implementation project(":domain")
 
     implementation kotlinDependencies.kotlin
+    implementation kotlinDependencies.coroutines
 
     implementation developmentDependencies.timber
 

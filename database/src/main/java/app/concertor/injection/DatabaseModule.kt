@@ -3,10 +3,11 @@ package app.concertor.injection
 import android.content.Context
 import androidx.room.Room
 import app.concertor.AppDatabase
+import app.concertor.CoroutinesContextProvider
 import app.concertor.mappers.EventsMapper
 import app.concertor.mappers.EventsMapperImpl
-import app.concertor.source.LocalEventDataSource
-import app.concertor.source.LocalEventDataSourceImpl
+import app.concertor.source.EventsLocalStore
+import app.concertor.source.EventsLocalStoreImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -29,7 +30,12 @@ class DatabaseModule {
     fun provideEventsMapper(): EventsMapper = EventsMapperImpl()
 
     @Provides
-    fun provideEventsDataSource(appDatabase: AppDatabase, mapper: EventsMapper): LocalEventDataSource {
-        return LocalEventDataSourceImpl(appDatabase, mapper)
+    fun provideEventsDataSource(
+            appDatabase: AppDatabase,
+            mapper: EventsMapper,
+            coroutinesContextProvider: CoroutinesContextProvider
+    ): EventsLocalStore {
+
+        return EventsLocalStoreImpl(appDatabase, mapper, coroutinesContextProvider)
     }
 }

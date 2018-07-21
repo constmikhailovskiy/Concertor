@@ -2,6 +2,7 @@ package app.concertor.mappers
 
 import app.concertor.models.Event
 import app.concertor.models.EventModel
+import app.concertor.models.Location
 
 interface EventsMapper {
 
@@ -17,14 +18,12 @@ internal class EventsMapperImpl : EventsMapper {
     }
 
     override fun mapEvent(eventModel: EventModel): Event {
-        return Event(
-                id = eventModel.id,
-                name = eventModel.name,
-                city = eventModel.location.city,
-                venueName = eventModel.venue.name,
-                url = eventModel.uri,
-                artistName = eventModel.performance.artist.name,
-                startDate = eventModel.start.date
-        )
+        return with(eventModel) {
+            Event(id = id, name = name, location = Location(latitude = location.latitude,
+                    longitude = location.longitude, city = location.city),
+                    performanceName = performance.name, artistName = performance.artist.name,
+                    date = start.dateTime, type = type, venue = venue.name, uri = uri
+            )
+        }
     }
 }

@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 @Suppress("UNCHECKED_CAST")
 class MviViewModelProvider {
 
-    inline fun <reified VM : ViewModel> machineProvider(
+    inline fun <reified VM : ViewModel> viewModelProvider(
             fragment: Fragment,
             crossinline provider: () -> VM
     ) = lazy {
@@ -18,7 +18,7 @@ class MviViewModelProvider {
         }).get(VM::class.java)
     }
 
-    inline fun <reified VM : ViewModel> machineProvider(
+    inline fun <reified VM : ViewModel> viewModelProvider(
             activity: AppCompatActivity,
             crossinline provider: () -> VM
     ) = lazy {

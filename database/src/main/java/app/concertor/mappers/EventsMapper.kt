@@ -3,46 +3,49 @@ package app.concertor.mappers
 import app.concertor.entities.EventEntity
 import app.concertor.entities.LocationEntity
 import app.concertor.entities.PerformanceEntity
-import app.concertor.models.Event
-import app.concertor.models.Location
+import app.concertor.repository.models.ArtistEntry
+import app.concertor.repository.models.EventEntry
+import app.concertor.repository.models.Location
 
 interface EventsMapper {
 
-    fun mapEventsToDomain(events: List<EventEntity>): List<Event>
+    fun mapEventsToDomain(events: List<EventEntity>): List<EventEntry>
 
-    fun mapEventsToLocal(events: List<Event>): List<EventEntity>
+    fun mapEventsToLocal(events: List<EventEntry>): List<EventEntity>
 }
 
 class EventsMapperImpl : EventsMapper {
 
-    override fun mapEventsToDomain(events: List<EventEntity>): List<Event> {
+    override fun mapEventsToDomain(events: List<EventEntity>): List<EventEntry> {
         return events.map { mapEventToDomain(it) }
     }
 
-    override fun mapEventsToLocal(events: List<Event>): List<EventEntity> {
+    override fun mapEventsToLocal(events: List<EventEntry>): List<EventEntity> {
         return events.map { mapEventToLocal(it) }
     }
 
-    private fun mapEventToDomain(event: EventEntity): Event {
+    private fun mapEventToDomain(event: EventEntity): EventEntry {
         return with(event) {
-            Event(id = id, name = name, uri = uri, venue = venue,
+            EventEntry(id = id, name = name, uri = uri, venue = venue,
                     location = Location(
                             latitude = location.latitude,
                             longitude = location.longitude,
                             city = location.city),
-                    date = date, artistName = performance.artistName,
-                    performanceName = performance.performanceName, type = type)
+                    date = date, artistEntry = ArtistEntry(performance.artistId,
+                    performance.artistName), performanceName = performance.performanceName,
+                    type = type)
         }
     }
 
-    private fun mapEventToLocal(event: Event): EventEntity {
+    private fun mapEventToLocal(event: EventEntry): EventEntity {
         return with(event) {
             EventEntity(id = id, name = name, uri = uri, venue = venue,
                     location = LocationEntity(
                             latitude = location.latitude,
                             longitude = location.longitude,
                             city = location.city),
-                    date = date, performance = PerformanceEntity(artistName = artistName,
+                    date = date, performance = PerformanceEntity(
+                    artistName = artistEntry.artistName, artistId = artistEntry.artistId,
                     performanceName = performanceName), type = type)
         }
     }

@@ -1,6 +1,6 @@
 package app.concertor.sections.home
 
-import app.concertor.models.Event
+import app.concertor.repository.models.EventEntry
 import app.concertor.mvi.State
 
 sealed class HomeState : State {
@@ -9,7 +9,7 @@ sealed class HomeState : State {
 
     object Loading : HomeState()
 
-    data class Loaded(val events: List<Event>) : HomeState()
+    data class Loaded(val events: List<EventEntry>) : HomeState()
 
     data class Failure(val reason: String) : HomeState()
 }

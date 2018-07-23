@@ -1,0 +1,20 @@
+package app.concertor.utils
+
+import java.text.SimpleDateFormat
+import java.util.*
+
+class DateUtils {
+    companion object {
+
+        private const val DATE_PATTERN = "YYYY-MM-DD"
+
+        fun convertTimestampToFormattedDate(timeStampMillis: Long): String {
+            return SimpleDateFormat(DATE_PATTERN, Locale.US)
+                    .format(convertTimestampToDate(timeStampMillis))
+        }
+
+        private fun convertTimestampToDate(timeStampMillis: Long): Date {
+            return Date(timeStampMillis)
+        }
+    }
+}

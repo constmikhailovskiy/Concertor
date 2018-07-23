@@ -26,5 +26,6 @@ data class LocationEntity(
 
 data class PerformanceEntity(
         @ColumnInfo(name = "performanceName") val performanceName: String,
+        @ColumnInfo(name = "artistId") val artistId: Long,
         @ColumnInfo(name = "artistName") val artistName: String
 )

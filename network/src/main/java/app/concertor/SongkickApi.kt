@@ -13,6 +13,8 @@ interface SongkickApi {
             @Query("apikey") apiKey: String = API_KEY,
             @Query("artist_name") artistName: String? = null,
             @Query("location") location: String? = null,
+            @Query("min_date") minDate: String? = null,
+            @Query("max_date") maxDate: String? = null,
             @Query("page") page: Int = 1,
             @Query("per_page") perPage: Int = 20
     ): Deferred<EventsResponse>

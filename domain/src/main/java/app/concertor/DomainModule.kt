@@ -6,8 +6,4 @@ import dagger.Provides
 @Module
 class DomainModule {
 
-    @Provides
-    fun provideCoroutinesProvider(): CoroutinesContextProvider {
-        return CoroutinesContextProvider()
-    }
 }

@@ -3,7 +3,6 @@ package app.concertor.injection
 import android.content.Context
 import androidx.room.Room
 import app.concertor.AppDatabase
-import app.concertor.CoroutinesContextProvider
 import app.concertor.mappers.EventsMapper
 import app.concertor.mappers.EventsMapperImpl
 import app.concertor.source.EventsLocalStore
@@ -32,10 +31,9 @@ class DatabaseModule {
     @Provides
     fun provideEventsDataSource(
             appDatabase: AppDatabase,
-            mapper: EventsMapper,
-            coroutinesContextProvider: CoroutinesContextProvider
+            mapper: EventsMapper
     ): EventsLocalStore {
 
-        return EventsLocalStoreImpl(appDatabase, mapper, coroutinesContextProvider)
+        return EventsLocalStoreImpl(appDatabase, mapper)
     }
 }

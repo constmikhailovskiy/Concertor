@@ -23,6 +23,10 @@ ext {
     // DI
     daggerVer = '2.16'
 
+    // Reactive Extensions
+    rxJava2Ver = '2.1.10'
+    rxAndroid2Ver = '2.0.1'
+
     // Retrofit
     retrofitVer = '2.4.0'
     retrofitCoroutinesAdapterVer = '1.0.0'
@@ -96,11 +100,15 @@ ext {
             retrofit                : "com.squareup.retrofit2:retrofit:$retrofitVer",
             retrofitMoshiConverter  : "com.squareup.retrofit2:converter-moshi:$retrofitVer",
             retrofitCoroutines      : "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:$retrofitCoroutinesAdapterVer",
+            retrofitRxJavaAdapter   : "com.squareup.retrofit2:adapter-rxjava2:$retrofitVer",
             room                    : "androidx.room:room-runtime:$roomVer",
             roomCompiler            : "androidx.room:room-compiler:$roomVer",
             roomMigration           : "androidx.room:room-migration:$roomVer",
+            roomRxJava              : "androidx.room:room-rxjava2:$roomVer",
             moshi                   : "com.squareup.moshi:moshi:$moshiVer",
-            moshiKotlin             : "com.squareup.moshi:moshi-kotlin:$moshiVer"
+            moshiKotlin             : "com.squareup.moshi:moshi-kotlin:$moshiVer",
+            rxJava                  : "io.reactivex.rxjava2:rxjava:$rxJava2Ver",
+            rxAndroid               : "io.reactivex.rxjava2:rxandroid:$rxAndroid2Ver"
     ]
 
     testDependencies = [

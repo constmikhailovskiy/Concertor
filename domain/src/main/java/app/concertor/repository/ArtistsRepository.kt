@@ -1,10 +1,11 @@
 package app.concertor.repository
 
 import app.concertor.models.Artist
+import io.reactivex.Single
 
 interface ArtistsRepository {
 
-    suspend fun getFavoriteArtistsIds(): List<Long>
+    fun getFavoriteArtistsIds(): Single<List<Long>>
 
-    suspend fun getFavoriteArtists(): List<Artist>
+    fun getFavoriteArtists(): Single<List<Artist>>
 }

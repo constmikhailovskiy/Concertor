@@ -53,6 +53,7 @@ dependencies {
     api dataDependencies.room
     kapt dataDependencies.roomCompiler
     api dataDependencies.roomMigration
+    api dataDependencies.roomRxJava
 
     testImplementation testDependencies.jUnit
     testImplementation testDependencies.mockito

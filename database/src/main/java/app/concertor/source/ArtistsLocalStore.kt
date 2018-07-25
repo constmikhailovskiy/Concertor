@@ -1,22 +1,20 @@
 package app.concertor.source
 
 import app.concertor.AppDatabase
-import app.concertor.CoroutinesContextProvider
+import io.reactivex.Single
 
 interface ArtistsLocalStore {
 
-    suspend fun getFavoriteArtistsIds(): List<Long>
+    fun getFavoriteArtistsIds(): Single<List<Long>>
 }
 
 class ArtistsLocalStoreImpl(
-        private val appDatabase: AppDatabase,
-        private val coroutinesContextProvider: CoroutinesContextProvider
+        private val appDatabase: AppDatabase
 ) : ArtistsLocalStore {
 
-    override suspend fun getFavoriteArtistsIds(): List<Long> {
-        return with(coroutinesContextProvider.IO) {
-            appDatabase.getFavoriteArtistDao().selectAllFavoriteArtists().map { it.artistId }
+    override fun getFavoriteArtistsIds(): Single<List<Long>> {
+        return appDatabase.getFavoriteArtistDao().selectAllFavoriteArtists().map { entries ->
+            entries.map { it.artistId }
         }
     }
-
 }

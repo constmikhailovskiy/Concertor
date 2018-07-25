@@ -32,8 +32,6 @@ kotlin {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    api project(":coroutinesprovider")
-
     implementation kotlinDependencies.kotlin
     implementation kotlinDependencies.coroutines
     implementation kotlinDependencies.coroutinesAndroid

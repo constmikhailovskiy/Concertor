@@ -1,53 +1,48 @@
 package app.concertor.repo.events
 
-import app.concertor.RetryHandler
-import app.concertor.repository.models.EventEntry
 import app.concertor.repository.EventsRepository
+import app.concertor.repository.models.EventEntry
 import app.concertor.source.EventsLocalStore
 import app.concertor.source.EventsRemoteStore
 import app.concertor.source.PlannedEventsLocalStore
+import io.reactivex.Completable
+import io.reactivex.Single
 
 class EventsRepositoryImpl(
         private val eventsLocalStore: EventsLocalStore,
         private val eventsRestStore: EventsRemoteStore,
-        private val plannedEventsLocalStore: PlannedEventsLocalStore,
-        private val retryHandler: RetryHandler
+        private val plannedEventsLocalStore: PlannedEventsLocalStore
 ) : EventsRepository {
 
-    override suspend fun getEventsForArtist(artistName: String): List<EventEntry> {
-        val localEvents = eventsLocalStore.getEventsForArtist(artistName)
-        return if (localEvents.isEmpty()) {
-            retryHandler.retryIO {
-                eventsRestStore.getEventsForArtist(artistName)
-            }.apply {
-                eventsLocalStore.saveEvents(this)
-                eventsLocalStore.getEventsForArtist(artistName)
-            }
-        } else {
-            localEvents
-        }
+    override fun getEventsForArtist(artistName: String): Single<List<EventEntry>> {
+        return eventsLocalStore.getEventsForArtist(artistName)
+                .flatMap {
+                    if (it.isEmpty()) {
+                        eventsRestStore.getEventsForArtist(artistName)
+                    } else {
+                        Single.just(it)
+                    }
+                }
     }
 
-    override suspend fun getEventsForDateRange(startDate: Long, endDate: Long): List<EventEntry> {
-        val localEvents = eventsLocalStore.getEventsForDateRange(startDate, endDate)
-        return if (localEvents.isEmpty()) {
-            retryHandler.retryIO {
-                eventsRestStore.getEventsForDateRange(startDate, endDate)
-            }.apply {
-                eventsLocalStore.saveEvents(this)
-                eventsLocalStore.getEventsForDateRange(startDate, endDate)
-            }
-        } else {
-            localEvents
-        }
+    override fun getEventsForDateRange(startDate: Long, endDate: Long): Single<List<EventEntry>> {
+        return eventsLocalStore.getEventsForDateRange(startDate, endDate)
+                .flatMap {
+                    if (it.isEmpty()) {
+                        eventsRestStore.getEventsForDateRange(startDate, endDate)
+                    } else {
+                        Single.just(it)
+                    }
+                }
     }
 
-    override suspend fun getPlannedEventsIds(): List<Long> {
-        return plannedEventsLocalStore.getPlannedEvents().map { it.eventId }
+    override fun getPlannedEventsIds(): Single<List<Long>> {
+        return plannedEventsLocalStore.getPlannedEvents()
+                .map { events -> events.map { it.eventId } }
     }
 
-    override suspend fun addEventToPlanned(eventId: Long) {
-        plannedEventsLocalStore.addEventToPlanned(eventId)
+    override fun addEventToPlanned(eventId: Long): Completable {
+        return plannedEventsLocalStore.addEventToPlanned(eventId)
     }
 
 }

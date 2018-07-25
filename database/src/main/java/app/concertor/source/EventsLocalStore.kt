@@ -4,42 +4,37 @@ import app.concertor.AppDatabase
 import app.concertor.CoroutinesContextProvider
 import app.concertor.mappers.EventsMapper
 import app.concertor.repository.models.EventEntry
+import io.reactivex.Completable
+import io.reactivex.Single
 import kotlinx.coroutines.experimental.withContext
 
 interface EventsLocalStore {
 
-    suspend fun getEventsForArtist(artistName: String): List<EventEntry>
+    fun getEventsForArtist(artistName: String): Single<List<EventEntry>>
 
-    suspend fun getEventsForDateRange(startDate: Long, endDate: Long): List<EventEntry>
+    fun getEventsForDateRange(startDate: Long, endDate: Long): Single<List<EventEntry>>
 
-    suspend fun saveEvents(events: List<EventEntry>)
+    fun saveEvents(events: List<EventEntry>): Completable
 }
 
 class EventsLocalStoreImpl(
         private val appDatabase: AppDatabase,
-        private val mapper: EventsMapper,
-        private val coroutinesContextProvider: CoroutinesContextProvider
+        private val mapper: EventsMapper
 ) : EventsLocalStore {
 
-    override suspend fun getEventsForArtist(artistName: String): List<EventEntry> {
-        val localEvents = withContext(coroutinesContextProvider.IO) {
-            appDatabase.getEventDao().selectEventsForArtist(artistName)
-        }
-        return mapper.mapEventsToDomain(localEvents)
+    override fun getEventsForArtist(artistName: String): Single<List<EventEntry>> {
+        return appDatabase.getEventDao().selectEventsForArtist(artistName)
+                .map { mapper.mapEventsToDomain(it) }
     }
 
-    override suspend fun getEventsForDateRange(startDate: Long, endDate: Long): List<EventEntry> {
-        val localEvents = withContext(coroutinesContextProvider.IO) {
-            appDatabase.getEventDao().selectEventsForDateRange(startDate, endDate)
-        }
-        return mapper.mapEventsToDomain(localEvents)
+    override fun getEventsForDateRange(startDate: Long, endDate: Long): Single<List<EventEntry>> {
+        return appDatabase.getEventDao().selectEventsForDateRange(startDate, endDate)
+                .map { mapper.mapEventsToDomain(it) }
     }
 
-    override suspend fun saveEvents(events: List<EventEntry>) {
-        val localEvents = mapper.mapEventsToLocal(events)
-        withContext(coroutinesContextProvider.IO) {
-            appDatabase.getEventDao().insert(events = localEvents)
-        }
+    override fun saveEvents(events: List<EventEntry>): Completable {
+        return Completable.fromAction { appDatabase.getEventDao()
+                .insert(events = mapper.mapEventsToLocal(events)) }
     }
 
 }

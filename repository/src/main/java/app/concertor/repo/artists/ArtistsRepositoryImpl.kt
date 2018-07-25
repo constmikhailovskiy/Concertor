@@ -3,16 +3,17 @@ package app.concertor.repo.artists
 import app.concertor.models.Artist
 import app.concertor.repository.ArtistsRepository
 import app.concertor.source.ArtistsLocalStore
+import io.reactivex.Single
 
 class ArtistsRepositoryImpl(
         private val favoriteArtistsLocalStore: ArtistsLocalStore
 ) : ArtistsRepository {
 
-    override suspend fun getFavoriteArtistsIds(): List<Long> {
+    override fun getFavoriteArtistsIds(): Single<List<Long>> {
         return favoriteArtistsLocalStore.getFavoriteArtistsIds()
     }
 
-    override suspend fun getFavoriteArtists(): List<Artist> {
+    override fun getFavoriteArtists(): Single<List<Artist>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

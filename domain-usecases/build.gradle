@@ -9,14 +9,9 @@ dependencies {
 
     // Kotlin
     implementation kotlinDependencies.kotlin
-    implementation kotlinDependencies.coroutines
 
     // RxJava
     implementation dataDependencies.rxJava
-
-    // Dagger
-    implementation dataDependencies.dagger
-    kapt dataDependencies.daggerCompiler
 }
 
 sourceCompatibility = "1.8"

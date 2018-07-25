@@ -42,6 +42,8 @@ dependencies {
     implementation kotlinDependencies.kotlin
     implementation kotlinDependencies.coroutines
 
+    implementation dataDependencies.rxJava
+
     implementation dataDependencies.dagger
     kapt dataDependencies.daggerCompiler
 

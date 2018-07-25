@@ -2,6 +2,8 @@ package app.concertor
 
 import android.app.Application
 import app.concertor.injection.components.AppComponent
+import app.concertor.injection.components.DaggerAppComponent
+import app.concertor.injection.modules.AppModule
 import com.facebook.stetho.Stetho
 import com.squareup.leakcanary.LeakCanary
 import timber.log.Timber
@@ -18,7 +20,11 @@ class ConcertorApp : Application() {
 
         application = this
 
+        appComponent = DaggerAppComponent.builder()
+                .appModule(AppModule(this))
+                .build()
 
+        // todo: set app schedulers
 
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return

@@ -56,6 +56,8 @@ dependencies {
     implementation dataDependencies.dagger
     kapt dataDependencies.daggerCompiler
 
+    implementation dataDependencies.rxAndroid
+
     testImplementation testDependencies.jUnit
     testImplementation testDependencies.mockito
     testImplementation testDependencies.mockitoKotlin

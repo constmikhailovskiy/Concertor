@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "1789ab71141883a9378a81c935082820",
+    "identityHash": "ce521281bb2c1ae567a2dc97d51d5cec",
     "entities": [
       {
         "tableName": "event",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `type` TEXT NOT NULL, `uri` TEXT NOT NULL, `venue` TEXT NOT NULL, `date` INTEGER NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `city` TEXT NOT NULL, `performanceName` TEXT NOT NULL, `artistName` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `type` TEXT NOT NULL, `uri` TEXT NOT NULL, `venue` TEXT NOT NULL, `date` INTEGER NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `city` TEXT NOT NULL, `performanceName` TEXT NOT NULL, `artistId` INTEGER NOT NULL, `artistName` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -66,6 +66,12 @@
             "fieldPath": "performance.performanceName",
             "columnName": "performanceName",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "performance.artistId",
+            "columnName": "artistId",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -159,7 +165,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"1789ab71141883a9378a81c935082820\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"ce521281bb2c1ae567a2dc97d51d5cec\")"
     ]
   }
 }

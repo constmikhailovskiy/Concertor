@@ -1,12 +1,10 @@
 package app.concertor.source
 
 import app.concertor.AppDatabase
-import app.concertor.CoroutinesContextProvider
 import app.concertor.mappers.EventsMapper
 import app.concertor.repository.models.EventEntry
 import io.reactivex.Completable
 import io.reactivex.Single
-import kotlinx.coroutines.experimental.withContext
 
 interface EventsLocalStore {
 

@@ -36,6 +36,8 @@ dependencies {
     implementation kotlinDependencies.coroutines
     implementation kotlinDependencies.coroutinesAndroid
 
+    implementation dataDependencies.rxJava
+
     implementation androidXDependencies.appCompat
     implementation androidXDependencies.androidKtx
     implementation androidXDependencies.lifecycleExt

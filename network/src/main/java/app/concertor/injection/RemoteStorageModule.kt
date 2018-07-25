@@ -9,7 +9,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class EventsRestModule {
+class RemoteStorageModule {
 
     @Provides
     fun provideEventsMapper(): EventsMapper = EventsMapperImpl()

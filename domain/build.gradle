@@ -6,6 +6,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(":schedulersprovider")
+    api project(":domain-usecases")
 
     // Kotlin
     implementation kotlinDependencies.kotlin

@@ -1,3 +1,3 @@
 package app.concertor.mvi
 
-interface State
+interface BaseViewState

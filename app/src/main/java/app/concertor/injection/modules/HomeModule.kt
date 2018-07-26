@@ -1,8 +1,8 @@
 package app.concertor.injection.modules
 
 import app.concertor.interactor.events.GetEventsUseCase
+import app.concertor.sections.base.ViewModelFactory
 import app.concertor.sections.home.HomeProcessor
-import app.concertor.sections.home.HomeViewModelFactory
 import dagger.Module
 import dagger.Provides
 
@@ -15,7 +15,7 @@ class HomeModule {
     }
 
     @Provides
-    fun provideHomeViewModelFactory(
+    fun provideViewModelFactory(
             homeProcessor: HomeProcessor
-    ) = HomeViewModelFactory(homeProcessor)
+    ) = ViewModelFactory(homeProcessor)
 }

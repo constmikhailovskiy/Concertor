@@ -1,7 +1,7 @@
 package app.concertor.source
 
 import app.concertor.AppDatabase
-import app.concertor.mappers.EventsMapper
+import app.concertor.source.mappers.EventsMapper
 import app.concertor.repository.models.EventEntry
 import io.reactivex.Completable
 import io.reactivex.Single

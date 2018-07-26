@@ -1,18 +1,18 @@
-package app.concertor.mappers
+package app.concertor.source.mappers
 
 import app.concertor.repository.models.EventEntry
 import app.concertor.models.EventModel
 import app.concertor.repository.models.ArtistEntry
 import app.concertor.repository.models.Location
 
-interface EventsMapper {
+interface EventsRemoteMapper {
 
     fun mapEvents(eventModels: List<EventModel>): List<EventEntry>
 
     fun mapEvent(eventModel: EventModel): EventEntry
 }
 
-internal class EventsMapperImpl : EventsMapper {
+internal class EventsRemoteMapperImpl : EventsRemoteMapper {
 
     override fun mapEvents(eventModels: List<EventModel>): List<EventEntry> {
         return eventModels.map { mapEvent(it) }

@@ -1,8 +1,8 @@
 package app.concertor.source
 
 import app.concertor.SongkickApi
-import app.concertor.mappers.EventsMapper
 import app.concertor.repository.models.EventEntry
+import app.concertor.source.mappers.EventsRemoteMapper
 import app.concertor.utils.DateUtils
 import io.reactivex.Single
 
@@ -15,7 +15,7 @@ interface EventsRemoteStore {
 
 class EventsRemoteStoreImpl(
         private val api: SongkickApi,
-        private val mapper: EventsMapper
+        private val mapper: EventsRemoteMapper
 ) : EventsRemoteStore {
 
     override fun getEventsForArtist(artistName: String): Single<List<EventEntry>> {

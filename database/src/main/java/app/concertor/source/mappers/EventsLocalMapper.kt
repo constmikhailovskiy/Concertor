@@ -1,4 +1,4 @@
-package app.concertor.mappers
+package app.concertor.source.mappers
 
 import app.concertor.entities.EventEntity
 import app.concertor.entities.LocationEntity

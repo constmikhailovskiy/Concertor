@@ -38,6 +38,7 @@ dependencies {
     implementation project(":database")
     implementation project(":repository")
     implementation project(":domain")
+    implementation project(":schedulersprovider")
 
     implementation kotlinDependencies.kotlin
     implementation androidXDependencies.appCompat

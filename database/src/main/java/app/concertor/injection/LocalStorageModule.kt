@@ -1,7 +1,7 @@
 package app.concertor.injection
 
 import app.concertor.AppDatabase
-import app.concertor.mappers.EventsMapperImpl
+import app.concertor.source.mappers.EventsMapperImpl
 import app.concertor.source.*
 import dagger.Module
 import dagger.Provides

@@ -1,27 +1,18 @@
 package app.concertor.utils.rx
 
 import app.concertor.SchedulerProvider
-import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
-object PresentationSchedulerProvider : SchedulerProvider {
-    override fun mainThread(): Scheduler {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+class PresentationSchedulerProvider : SchedulerProvider {
+    override fun mainThread() = AndroidSchedulers.mainThread()
 
-    override fun io(): Scheduler {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun io() = Schedulers.io()
 
-    override fun computation(): Scheduler {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun computation() = Schedulers.computation()
 
-    override fun newThread(): Scheduler {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun newThread() = Schedulers.newThread()
 
-    override fun trampoline(): Scheduler {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun trampoline() = Schedulers.trampoline()
 
 }

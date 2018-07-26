@@ -20,27 +20,27 @@ data class EventModel(
         @Json(name = "venue") val venue: VenueModel,
         @Json(name = "location") val location: EventLocationModel,
         @Json(name = "start") val start: EventStartModel,
-        @Json(name = "performance") val performance: PerformanceModel,
+        @Json(name = "performance") val performance: List<PerformanceModel>,
         @Json(name = "id") val id: Long
 )
 
 data class VenueModel(@Json(name = "displayName") val name: String)
 
 data class EventLocationModel(
-        @Json(name = "latitude") val latitude: Double,
-        @Json(name = "longitude") val longitude: Double,
+        @Json(name = "lat") val latitude: Double,
+        @Json(name = "lng") val longitude: Double,
         @Json(name = "city") val city: String
 )
 
 data class EventStartModel(
-        @Json(name = "time") val time: Date,
-        @Json(name = "date") val date: Date,
-        @Json(name = "datetime") val dateTime: Date
+        @Json(name = "time") val time: String,
+        @Json(name = "date") val date: String,
+        @Json(name = "datetime") val dateTime: String
 )
 
 data class PerformanceModel(
         @Json(name = "artist") val artist: ArtistModel,
-        @Json(name = "name") val name: String
+        @Json(name = "displayName") val name: String
 )
 
 data class ArtistModel(

@@ -1,18 +1,20 @@
 package app.concertor.sections.home
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import app.concertor.ConcertorApp
 import app.concertor.R
 import app.concertor.mvi.BaseView
+import app.concertor.sections.base.ViewModelFactory
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity(), BaseView<HomeIntent, HomeViewState> {
 
-    @Inject lateinit var viewModelFactory: HomeViewModelFactory
+    @Inject lateinit var viewModelFactory: ViewModelFactory
     private lateinit var viewModel: HomeViewModel
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -35,6 +37,7 @@ class HomeActivity : AppCompatActivity(), BaseView<HomeIntent, HomeViewState> {
     }
 
     override fun render(state: HomeViewState) {
+        Toast.makeText(this@HomeActivity, "State received: $state", Toast.LENGTH_LONG).show()
         when (state) {
             HomeViewState.Loading -> {
                 Timber.d("In loading state")

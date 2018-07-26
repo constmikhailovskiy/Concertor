@@ -1,7 +1,6 @@
 package app.concertor.sections.home
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import app.concertor.mvi.BaseViewModel
 import app.concertor.mvi.model.TaskStatus
 import io.reactivex.Observable
@@ -29,7 +28,6 @@ class HomeViewModel @Inject constructor(
                     }
                 }
             }
-
 
     private val statesSubject: Observable<HomeViewState> = getStatesFlow()
 
@@ -59,19 +57,4 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-}
-
-class HomeViewModelFactory @Inject constructor(
-        private val eventsProcessor: HomeProcessor
-) : ViewModelProvider.Factory {
-
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        when {
-            modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
-                return HomeViewModel(eventsProcessor) as T
-            }
-            else -> throw IllegalArgumentException("Unknown ViewModel class")
-        }
-    }
 }

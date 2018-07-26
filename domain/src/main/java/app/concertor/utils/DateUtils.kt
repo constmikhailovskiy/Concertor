@@ -13,6 +13,10 @@ class DateUtils {
                     .format(convertTimestampToDate(timeStampMillis))
         }
 
+        fun convertStringToDate(formattedDate: String): Date {
+            return SimpleDateFormat(DATE_PATTERN, Locale.US).parse(formattedDate)
+        }
+
         private fun convertTimestampToDate(timeStampMillis: Long): Date {
             return Date(timeStampMillis)
         }

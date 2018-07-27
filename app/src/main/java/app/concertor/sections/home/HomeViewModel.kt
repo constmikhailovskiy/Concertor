@@ -9,7 +9,7 @@ import io.reactivex.subjects.PublishSubject
 import timber.log.Timber
 import javax.inject.Inject
 
-class HomeViewModel @Inject constructor(
+open class HomeViewModel @Inject constructor(
         private val eventsProcessor: HomeProcessor
 ) : ViewModel(), BaseViewModel<HomeIntent, HomeViewState> {
 

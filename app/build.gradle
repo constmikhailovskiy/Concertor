@@ -33,7 +33,7 @@ kotlin {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(":reduxmachine")
+    implementation project(':reduxer')
     implementation project(":network")
     implementation project(":database")
     implementation project(":repository")

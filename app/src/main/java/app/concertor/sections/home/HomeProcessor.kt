@@ -2,11 +2,9 @@ package app.concertor.sections.home
 
 import app.concertor.interactor.events.GetEventsUseCase
 import app.concertor.mvi.BaseActionProcessor
-import io.reactivex.ObservableTransformer
 import kotlinx.coroutines.experimental.channels.BroadcastChannel
 import kotlinx.coroutines.experimental.channels.broadcast
 import kotlinx.coroutines.experimental.channels.produce
-import kotlinx.coroutines.experimental.channels.sendBlocking
 import javax.inject.Inject
 
 class HomeProcessor @Inject constructor(

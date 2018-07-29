@@ -1,1 +1,1 @@
-include ':app', ':network', ':domain', ':database', ':repository', ':reduxmachine', ':domain-core'
+include ':app', ':network', ':domain', ':database', ':repository', ':reduxer', ':domain-core'

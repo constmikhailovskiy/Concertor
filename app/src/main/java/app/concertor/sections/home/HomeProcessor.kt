@@ -1,6 +1,7 @@
 package app.concertor.sections.home
 
 import app.concertor.interactor.events.GetEventsUseCase
+import app.concertor.mvi.BaseActionProcessor
 import io.reactivex.ObservableTransformer
 import kotlinx.coroutines.experimental.channels.BroadcastChannel
 import kotlinx.coroutines.experimental.channels.broadcast
@@ -10,24 +11,25 @@ import javax.inject.Inject
 
 class HomeProcessor @Inject constructor(
     private val getEventsUseCase: GetEventsUseCase
-) {
+) : BaseActionProcessor<HomeAction, HomeResult>() {
 
-    fun actionProcessor(action: HomeAction): BroadcastChannel<HomeResult> = produce {
-        when (action) {
-            is HomeAction.LoadEventsForArtist -> {
-                send(HomeResult.LoadEventsForArtistTask.loading())
-                try {
-                    val events = getEventsUseCase.get(action.artistName)
-                    send(HomeResult.LoadEventsForArtistTask.success(events))
-                } catch (exc: Exception) {
-                    send(HomeResult.LoadEventsForArtistTask.failure(exc))
+    override fun processAction(action: HomeAction): BroadcastChannel<HomeResult> {
+        return produce {
+            when (action) {
+                is HomeAction.LoadEventsForArtist -> {
+                    send(HomeResult.LoadEventsForArtistTask.loading())
+                    try {
+                        val events = getEventsUseCase.get(action.artistName)
+                        send(HomeResult.LoadEventsForArtistTask.success(events))
+                    } catch (exc: Exception) {
+                        send(HomeResult.LoadEventsForArtistTask.failure(exc))
+                    }
                 }
             }
-        }
-    }.broadcast()
-
-    fun stop() {
-        getEventsUseCase.dispose()
+        }.broadcast()
     }
 
+    override fun dispose() {
+        getEventsUseCase.dispose()
+    }
 }

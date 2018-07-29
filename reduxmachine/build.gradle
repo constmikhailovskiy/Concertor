@@ -57,6 +57,7 @@ dependencies {
     androidTestImplementation androidTestDependencies.roomTesting
     androidTestImplementation androidTestDependencies.testArchCore
     androidTestImplementation androidTestDependencies.roomTesting
+    compile project(path: ':domain-core')
 }
 repositories {
     jcenter()

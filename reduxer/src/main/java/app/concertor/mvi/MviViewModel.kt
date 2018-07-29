@@ -24,7 +24,7 @@ abstract class MviViewModel<I : BaseIntent, A : BaseAction, R : BaseResult, VS :
     private val state = ConflatedBroadcastChannel(initialState)
     private var stateSubscription: ReceiveChannel<VS>? = null
 
-    init {
+    protected fun startTrackingStates() {
         stateSubscription = state.openSubscription().also {
             launch(Coroutines.main()) {
                 it.distinct().consumeEach { onStateReceived(it) }

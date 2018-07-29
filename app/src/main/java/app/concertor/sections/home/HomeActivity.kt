@@ -23,7 +23,7 @@ class HomeActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(HomeViewModel::class.java)
 
-        viewModel.homeScreenLiveData
+        viewModel.states
                 .observe(this, Observer {
                     viewState -> viewState?.let { render(it) }
                 })

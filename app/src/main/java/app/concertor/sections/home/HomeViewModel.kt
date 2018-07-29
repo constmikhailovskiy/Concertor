@@ -1,11 +1,8 @@
 package app.concertor.sections.home
 
 import androidx.lifecycle.MutableLiveData
-import app.concertor.coroutines.Coroutines
 import app.concertor.mvi.MviViewModel
 import app.concertor.mvi.model.TaskStatus
-import kotlinx.coroutines.experimental.channels.*
-import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
 
 open class HomeViewModel @Inject constructor(
@@ -14,10 +11,15 @@ open class HomeViewModel @Inject constructor(
         initialState = HomeViewState.Idle, actionsProcessor = eventsProcessor
 ) {
 
-    val homeScreenLiveData: MutableLiveData<HomeViewState> = MutableLiveData()
+    val states: MutableLiveData<HomeViewState> = MutableLiveData()
+
+    init {
+        startTrackingStates()
+    }
 
     override fun onStateReceived(viewState: HomeViewState) {
-        homeScreenLiveData.value = viewState
+        println("State received: $viewState")
+        states.value = viewState
     }
 
     override fun intentToAction(lastState: HomeViewState, intent: HomeIntent): HomeAction {

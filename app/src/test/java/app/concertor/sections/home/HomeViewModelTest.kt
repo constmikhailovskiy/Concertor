@@ -1,14 +1,18 @@
 package app.concertor.sections.home
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
 import app.concertor.interactor.events.GetEventsUseCase
 import app.concertor.models.Event
 import app.concertor.models.Location
+import app.concertor.sections.SynchronousCoroutines
+import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
-import com.nhaarman.mockito_kotlin.whenever
-import io.reactivex.Single
+import com.nhaarman.mockito_kotlin.willReturn
+import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
@@ -17,9 +21,18 @@ import java.util.*
 @RunWith(MockitoJUnitRunner::class)
 class HomeViewModelTest {
 
+    @JvmField
+    @Rule
+    val rules = SynchronousCoroutines()
+
+    @Rule
+    @JvmField
+    val rule = InstantTaskExecutorRule()
+
     private lateinit var viewModel: HomeViewModel
     private lateinit var actionsProcessor: HomeProcessor
     private val getEventsUseCase = mock<GetEventsUseCase>()
+    private val observer: Observer<HomeViewState> = mock()
 
     @Before
     fun setUp() {
@@ -29,21 +42,33 @@ class HomeViewModelTest {
 
     @Test
     fun testGetEventsSuccess() {
-        val events = listOf(Event(id = 1L, name = "", type = "", uri = "uri", venue = "venue",
-                artistName = "artist", location = Location(45.4, 53.4, "Paris"),
-                date = Date(System.currentTimeMillis()), performanceName = "Test", planned = false,
-                favoriteArtist = true))
-        whenever(getEventsUseCase.get()).thenReturn(Single.just(events))
+        val result = listOf(Event(
+                0, "", "", "", "",
+                Location(0.0, 0.0, ""), Date(),
+                "p", "Mike", false, false
+        ))
+        given { runBlocking { getEventsUseCase.get("test") } }.willReturn(result)
 
-        val testObserver = viewModel.states().test()
+        viewModel.states.observeForever(observer)
 
-        viewModel.performIntent(HomeIntent.LoadEventsIntent("Elvis"))
+        viewModel.performIntent(HomeIntent.LoadEventsIntent("test"))
 
-        testObserver.assertValueSequence(listOf(HomeViewState.Idle, HomeViewState.Loading,
-                HomeViewState.Success(events)))
+        verify(observer).onChanged(HomeViewState.Idle)
+        verify(observer).onChanged(HomeViewState.Loading)
+        verify(observer).onChanged(HomeViewState.Success(result))
+    }
 
-        verify(getEventsUseCase).artistName = "Elvis"
-        verify(getEventsUseCase).get()
-        verifyNoMoreInteractions(getEventsUseCase)
+    @Test
+    fun testGetEventsFailure() {
+        val failure = Throwable("Random failure")
+        given { runBlocking { getEventsUseCase.get("test") } }.willThrow(failure)
+
+        viewModel.states.observeForever(observer)
+
+        viewModel.performIntent(HomeIntent.LoadEventsIntent("test"))
+
+        verify(observer).onChanged(HomeViewState.Idle)
+        verify(observer).onChanged(HomeViewState.Loading)
+        verify(observer).onChanged(HomeViewState.Failed(failure))
     }
 }

@@ -66,6 +66,8 @@ dependencies {
     testImplementation testDependencies.mockitoKotlin
     testImplementation testDependencies.mockitoInline
     testImplementation testDependencies.assertJ
+    testImplementation testDependencies.archComponentsTest
+
 
     androidTestImplementation androidTestDependencies.testRunner
     androidTestImplementation androidTestDependencies.espressoCore

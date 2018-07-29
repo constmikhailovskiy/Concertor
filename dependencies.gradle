@@ -116,7 +116,8 @@ ext {
             mockito      : "org.mockito:mockito-core:$mockitoVer",
             mockitoKotlin: "com.nhaarman:mockito-kotlin:$mockitoKotlinVer",
             assertJ      : "org.assertj:assertj-core:$assertJVer",
-            mockitoInline: "org.mockito:mockito-inline:$mockitoVer"
+            mockitoInline: "org.mockito:mockito-inline:$mockitoVer",
+            archComponentsTest  : "androidx.arch.core:core-testing:$archCoreVer"
     ]
 
     androidTestDependencies = [

@@ -11,10 +11,10 @@ import io.reactivex.Single
 abstract class PlannedEventDao {
 
     @Query("SELECT * FROM plannedEvent")
-    abstract fun selectAllPlannedEvents(): Single<List<PlannedEventEntity>>
+    abstract fun selectAllPlannedEvents(): List<PlannedEventEntity>
 
     @Query("SELECT * FROM plannedEvent WHERE eventId = :eventId LIMIT 1")
-    abstract fun selectPlannedEventsById(eventId: Long): Single<List<PlannedEventEntity>>
+    abstract fun selectPlannedEventsById(eventId: Long): List<PlannedEventEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun addPlannedEvent(plannedEvent: PlannedEventEntity)

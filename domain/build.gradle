@@ -5,8 +5,7 @@ apply plugin: 'kotlin-kapt'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(":schedulersprovider")
-    api project(":domain-usecases")
+    api project(':domain-core')
 
     // Kotlin
     implementation kotlinDependencies.kotlin

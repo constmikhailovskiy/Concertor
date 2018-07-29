@@ -38,9 +38,11 @@ dependencies {
     implementation project(":database")
     implementation project(":repository")
     implementation project(":domain")
-    implementation project(":schedulersprovider")
 
     implementation kotlinDependencies.kotlin
+    implementation kotlinDependencies.coroutines
+    implementation kotlinDependencies.coroutinesAndroid
+
     implementation androidXDependencies.appCompat
     implementation androidXDependencies.material
     implementation androidXDependencies.constraintLayout

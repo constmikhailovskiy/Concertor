@@ -6,11 +6,11 @@ import io.reactivex.Single
 
 interface EventsRepository {
 
-    fun getEventsForArtist(artistName: String): Single<List<EventEntry>>
+    suspend fun getEventsForArtist(artistName: String): List<EventEntry>
 
-    fun getEventsForDateRange(startDate: Long, endDate: Long): Single<List<EventEntry>>
+    suspend fun getEventsForDateRange(startDate: Long, endDate: Long): List<EventEntry>
 
-    fun getPlannedEventsIds(): Single<List<Long>>
+    suspend fun getPlannedEventsIds(): List<Long>
 
-    fun addEventToPlanned(eventId: Long): Completable
+    suspend fun addEventToPlanned(eventId: Long)
 }

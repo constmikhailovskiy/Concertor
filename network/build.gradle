@@ -48,7 +48,7 @@ dependencies {
     api dataDependencies.okHttpInterceptor
     api dataDependencies.retrofit
     api dataDependencies.retrofitMoshiConverter
-    api dataDependencies.retrofitRxJavaAdapter
+    api dataDependencies.retrofitCoroutines
     api dataDependencies.moshi
     api dataDependencies.moshiKotlin
 

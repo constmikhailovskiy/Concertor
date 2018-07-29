@@ -1,10 +1,11 @@
 package app.concertor
 
 import android.app.Application
+import app.concertor.coroutines.Coroutines
 import app.concertor.injection.components.AppComponent
 import app.concertor.injection.components.DaggerAppComponent
 import app.concertor.injection.modules.AppModule
-import app.concertor.utils.rx.PresentationSchedulerProvider
+import app.concertor.utils.coroutines.DefaultCoroutinesProvider
 import com.facebook.stetho.Stetho
 import com.squareup.leakcanary.LeakCanary
 import timber.log.Timber
@@ -25,7 +26,7 @@ class ConcertorApp : Application() {
                 .appModule(AppModule(this))
                 .build()
 
-        AppSchedulers.setInstance(PresentationSchedulerProvider())
+        Coroutines.setInstance(DefaultCoroutinesProvider())
 
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return

@@ -14,34 +14,31 @@ class EventsRepositoryImpl(
         private val plannedEventsLocalStore: PlannedEventsLocalStore
 ) : EventsRepository {
 
-    override fun getEventsForArtist(artistName: String): Single<List<EventEntry>> {
-        return eventsLocalStore.getEventsForArtist(artistName)
-                .flatMap {
-                    if (it.isEmpty()) {
-                        eventsRestStore.getEventsForArtist(artistName)
-                    } else {
-                        Single.just(it)
-                    }
-                }
+    override suspend fun getEventsForArtist(artistName: String): List<EventEntry> {
+        val localEventsForArtist = eventsLocalStore.getEventsForArtist(artistName)
+
+        return if (localEventsForArtist.isEmpty()) {
+            eventsRestStore.getEventsForArtist(artistName)
+        } else {
+            localEventsForArtist
+        }
     }
 
-    override fun getEventsForDateRange(startDate: Long, endDate: Long): Single<List<EventEntry>> {
-        return eventsLocalStore.getEventsForDateRange(startDate, endDate)
-                .flatMap {
-                    if (it.isEmpty()) {
-                        eventsRestStore.getEventsForDateRange(startDate, endDate)
-                    } else {
-                        Single.just(it)
-                    }
-                }
+    override suspend fun getEventsForDateRange(startDate: Long, endDate: Long): List<EventEntry> {
+        val localEvents = eventsLocalStore.getEventsForDateRange(startDate, endDate)
+
+        return if (localEvents.isEmpty()) {
+            eventsRestStore.getEventsForDateRange(startDate, endDate)
+        } else {
+            localEvents
+        }
     }
 
-    override fun getPlannedEventsIds(): Single<List<Long>> {
-        return plannedEventsLocalStore.getPlannedEvents()
-                .map { events -> events.map { it.eventId } }
+    override suspend fun getPlannedEventsIds(): List<Long> {
+        return plannedEventsLocalStore.getPlannedEvents().map { it.eventId }
     }
 
-    override fun addEventToPlanned(eventId: Long): Completable {
+    override suspend fun addEventToPlanned(eventId: Long) {
         return plannedEventsLocalStore.addEventToPlanned(eventId)
     }
 

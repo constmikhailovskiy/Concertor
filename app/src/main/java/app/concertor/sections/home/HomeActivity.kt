@@ -1,22 +1,19 @@
 package app.concertor.sections.home
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import app.concertor.ConcertorApp
 import app.concertor.R
-import app.concertor.mvi.BaseView
 import app.concertor.sections.base.ViewModelFactory
-import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 import javax.inject.Inject
 
-class HomeActivity : AppCompatActivity(), BaseView<HomeIntent, HomeViewState> {
+class HomeActivity : AppCompatActivity() {
 
     @Inject lateinit var viewModelFactory: ViewModelFactory
     private lateinit var viewModel: HomeViewModel
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,18 +23,16 @@ class HomeActivity : AppCompatActivity(), BaseView<HomeIntent, HomeViewState> {
         viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(HomeViewModel::class.java)
 
-        compositeDisposable.add(viewModel.states().subscribe { render(it) })
+        viewModel.homeScreenLiveData
+                .observe(this, Observer {
+                    viewState -> viewState?.let { render(it) }
+                })
 
         viewModel.performIntent(HomeIntent.LoadEventsIntent("Cold"))
     }
 
-    override fun onDestroy() {
-        compositeDisposable.dispose()
-        super.onDestroy()
-    }
-
-    override fun render(state: HomeViewState) {
-        Toast.makeText(this@HomeActivity, "State received: $state", Toast.LENGTH_LONG).show()
+    private fun render(state: HomeViewState) {
+        Timber.d("State received: $state")
         when (state) {
             HomeViewState.Loading -> {
                 Timber.d("In loading state")

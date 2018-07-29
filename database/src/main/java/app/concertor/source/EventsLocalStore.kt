@@ -8,11 +8,11 @@ import io.reactivex.Single
 
 interface EventsLocalStore {
 
-    fun getEventsForArtist(artistName: String): Single<List<EventEntry>>
+    suspend fun getEventsForArtist(artistName: String): List<EventEntry>
 
-    fun getEventsForDateRange(startDate: Long, endDate: Long): Single<List<EventEntry>>
+    suspend fun getEventsForDateRange(startDate: Long, endDate: Long): List<EventEntry>
 
-    fun saveEvents(events: List<EventEntry>): Completable
+    suspend fun saveEvents(events: List<EventEntry>): Completable
 }
 
 class EventsLocalStoreImpl(
@@ -20,17 +20,17 @@ class EventsLocalStoreImpl(
         private val mapper: EventsMapper
 ) : EventsLocalStore {
 
-    override fun getEventsForArtist(artistName: String): Single<List<EventEntry>> {
+    override suspend fun getEventsForArtist(artistName: String): List<EventEntry> {
         return appDatabase.getEventDao().selectEventsForArtist(artistName)
-                .map { mapper.mapEventsToDomain(it) }
+                .map { mapper.mapEventToDomain(it) }
     }
 
-    override fun getEventsForDateRange(startDate: Long, endDate: Long): Single<List<EventEntry>> {
+    override suspend fun getEventsForDateRange(startDate: Long, endDate: Long): List<EventEntry> {
         return appDatabase.getEventDao().selectEventsForDateRange(startDate, endDate)
-                .map { mapper.mapEventsToDomain(it) }
+                .map { mapper.mapEventToDomain(it) }
     }
 
-    override fun saveEvents(events: List<EventEntry>): Completable {
+    override suspend fun saveEvents(events: List<EventEntry>): Completable {
         return Completable.fromAction { appDatabase.getEventDao()
                 .insert(events = mapper.mapEventsToLocal(events)) }
     }

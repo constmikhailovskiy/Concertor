@@ -9,11 +9,11 @@ class ArtistsRepositoryImpl(
         private val favoriteArtistsLocalStore: ArtistsLocalStore
 ) : ArtistsRepository {
 
-    override fun getFavoriteArtistsIds(): Single<List<Long>> {
+    override fun getFavoriteArtistsIds(): List<Long> {
         return favoriteArtistsLocalStore.getFavoriteArtistsIds()
     }
 
-    override fun getFavoriteArtists(): Single<List<Artist>> {
+    override fun getFavoriteArtists(): List<Artist> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

@@ -4,13 +4,12 @@ import app.concertor.SongkickApi
 import app.concertor.repository.models.EventEntry
 import app.concertor.source.mappers.EventsRemoteMapper
 import app.concertor.utils.DateUtils
-import io.reactivex.Single
 
 interface EventsRemoteStore {
 
-    fun getEventsForArtist(artistName: String): Single<List<EventEntry>>
+    suspend fun getEventsForArtist(artistName: String): List<EventEntry>
 
-    fun getEventsForDateRange(startDate: Long, endDate: Long): Single<List<EventEntry>>
+    suspend fun getEventsForDateRange(startDate: Long, endDate: Long): List<EventEntry>
 }
 
 class EventsRemoteStoreImpl(
@@ -18,14 +17,16 @@ class EventsRemoteStoreImpl(
         private val mapper: EventsRemoteMapper
 ) : EventsRemoteStore {
 
-    override fun getEventsForArtist(artistName: String): Single<List<EventEntry>> {
-        return api.getEvents(artistName = artistName)
-                .map { mapper.mapEvents(it.resultsPage.results.events) }
+    override suspend fun getEventsForArtist(artistName: String): List<EventEntry> {
+        return api.getEvents(artistName = artistName).await().resultsPage.results.events.map {
+            mapper.mapEvent(it)
+        }
     }
 
-    override fun getEventsForDateRange(startDate: Long, endDate: Long): Single<List<EventEntry>> {
+    override suspend fun getEventsForDateRange(startDate: Long, endDate: Long): List<EventEntry> {
         return api.getEvents(minDate = DateUtils.convertTimestampToFormattedDate(startDate),
-                maxDate = DateUtils.convertTimestampToFormattedDate(endDate))
-                .map { mapper.mapEvents(eventModels = it.resultsPage.results.events) }
+                maxDate = DateUtils.convertTimestampToFormattedDate(endDate)).await().resultsPage
+                .results.events.map { mapper.mapEvent(it) }
+
     }
 }

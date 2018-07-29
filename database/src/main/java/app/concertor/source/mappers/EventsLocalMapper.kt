@@ -11,6 +11,8 @@ interface EventsMapper {
 
     fun mapEventsToDomain(events: List<EventEntity>): List<EventEntry>
 
+    fun mapEventToDomain(event: EventEntity): EventEntry
+
     fun mapEventsToLocal(events: List<EventEntry>): List<EventEntity>
 }
 
@@ -24,7 +26,7 @@ class EventsMapperImpl : EventsMapper {
         return events.map { mapEventToLocal(it) }
     }
 
-    private fun mapEventToDomain(event: EventEntity): EventEntry {
+    override fun mapEventToDomain(event: EventEntity): EventEntry {
         return with(event) {
             EventEntry(id = id, name = name, uri = uri, venue = venue,
                     location = Location(

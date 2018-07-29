@@ -26,4 +26,6 @@ sealed class HomeResult : BaseResult {
             }
         }
     }
+
+    data class NavigateTo(val screenName: String) : HomeResult()
 }

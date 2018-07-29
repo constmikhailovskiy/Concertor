@@ -5,4 +5,6 @@ import app.concertor.mvi.BaseAction
 sealed class HomeAction : BaseAction {
 
     data class LoadEventsForArtist(val artistName: String) : HomeAction()
+
+    object Quit : HomeAction()
 }

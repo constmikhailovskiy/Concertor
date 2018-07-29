@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProviders
 import app.concertor.ConcertorApp
 import app.concertor.R
 import app.concertor.sections.base.ViewModelFactory
+import kotlinx.android.synthetic.main.activity_home.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -29,6 +30,8 @@ class HomeActivity : AppCompatActivity() {
                 })
 
         viewModel.performIntent(HomeIntent.LoadEventsIntent("Cold"))
+
+        btnQuit.setOnClickListener { viewModel.performIntent(HomeIntent.QuitIntent) }
     }
 
     private fun render(state: HomeViewState) {
@@ -43,6 +46,15 @@ class HomeActivity : AppCompatActivity() {
             is HomeViewState.Success -> {
                 Timber.d("Loaded events successfully: ${state.events}")
             }
+            is HomeViewState.NavigationState -> {
+                Timber.d("Received navigation state")
+            }
+        }
+    }
+
+    private fun handleNavigation(navigationState: HomeViewState.NavigationState) {
+        when (navigationState.screenDest) {
+            "quit" -> finish()
         }
     }
 }

@@ -9,8 +9,10 @@ import kotlinx.coroutines.experimental.channels.produce
 import kotlinx.coroutines.experimental.channels.sendBlocking
 import javax.inject.Inject
 
-class HomeProcessor @Inject constructor(
-    private val getEventsUseCase: GetEventsUseCase
+class HomeProcessor constructor(
+    private val getEventsUseCase: GetEventsUseCase,
+    private val homeAnalytics: HomeAnalytics,
+    private val coordinator: Coordinator
 ) : BaseActionProcessor<HomeAction, HomeResult>() {
 
     override fun processAction(action: HomeAction): BroadcastChannel<HomeResult> {
@@ -25,6 +27,10 @@ class HomeProcessor @Inject constructor(
                         send(HomeResult.LoadEventsForArtistTask.failure(exc))
                     }
                 }
+                is HomeAction.Quit -> {
+                    homeAnalytics.sendQuitEvent()
+                    coordinator.quit()
+                }
             }
         }.broadcast()
     }
@@ -32,4 +38,14 @@ class HomeProcessor @Inject constructor(
     override fun dispose() {
         getEventsUseCase.dispose()
     }
+}
+
+interface HomeAnalytics {
+
+    fun sendQuitEvent()
+}
+
+class Coordinator {
+
+    fun quit() {}
 }

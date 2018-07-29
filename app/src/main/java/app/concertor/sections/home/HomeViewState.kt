@@ -15,5 +15,7 @@ sealed class HomeViewState(
 
     data class Success(override val events: List<Event>) : HomeViewState(events = events)
 
+    data class NavigationState(val screenDest: String) : HomeViewState()
+
     object Idle : HomeViewState()
 }

@@ -1,11 +1,8 @@
 package app.concertor.sections.home
 
 import androidx.lifecycle.MutableLiveData
-import app.concertor.coroutines.Coroutines
 import app.concertor.mvi.MviViewModel
 import app.concertor.mvi.model.TaskStatus
-import kotlinx.coroutines.experimental.channels.*
-import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
 
 open class HomeViewModel @Inject constructor(
@@ -22,6 +19,7 @@ open class HomeViewModel @Inject constructor(
 
     override fun intentToAction(lastState: HomeViewState, intent: HomeIntent): HomeAction {
         return when (intent) {
+            HomeIntent.QuitIntent -> HomeAction.Quit
             is HomeIntent.LoadEventsIntent -> HomeAction.LoadEventsForArtist(
                     artistName = intent.artistName
             )
@@ -38,6 +36,7 @@ open class HomeViewModel @Inject constructor(
                     else -> HomeViewState.Idle
                 }
             }
+            is HomeResult.NavigateTo -> HomeViewState.NavigationState(result.screenName)
         }
     }
 }

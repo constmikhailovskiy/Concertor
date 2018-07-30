@@ -60,8 +60,8 @@ class HomeViewModelTest {
 
     @Test
     fun testGetEventsFailure() {
-        val failure = Throwable("Random failure")
-        given { runBlocking { getEventsUseCase.get("test") } }.willThrow(failure)
+        val failure = IllegalStateException("Random failure")
+        given { runBlocking { getEventsUseCase.get("test") } }.willAnswer { throw failure }
 
         viewModel.states.observeForever(observer)
 
